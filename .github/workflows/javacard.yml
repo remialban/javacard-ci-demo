@@ -2,7 +2,7 @@ name: Java Card CI
 
 on:
   workflow_run: 
-    workflows: ["sast"]
+    workflows: ["Semgrep"]
     types:
       - completed
 
