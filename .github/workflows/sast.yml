@@ -24,6 +24,6 @@ jobs:
       
       - run: |
           find . -name "*.java"
-          semgrep scan --config p/java --include "*.java" --verbose src
+          semgrep scan --config auto
         
 
