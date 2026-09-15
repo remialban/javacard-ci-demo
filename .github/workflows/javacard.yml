@@ -69,3 +69,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: build/cap/fr/insa/javacard/insa.cap
+          tag_name: stage-2026-03-15
