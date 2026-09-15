@@ -17,7 +17,7 @@ public class HelloWorldApplet extends Applet {
     private HelloWorldApplet() {
         register();
     }
-
+ 
     public static void install(byte[] bArray, short bOffset, byte bLength) {
         new HelloWorldApplet();
     }
