@@ -7,7 +7,13 @@ public class HelloWorldApplet extends Applet {
     private static final byte[] HELLO_WORLD = {
         (byte)'H', (byte)'e', (byte)'l', (byte)'l', (byte)'o',
         (byte)' ', (byte)'W', (byte)'o', (byte)'r', (byte)'l', (byte)'d'
-    }
+    };
+
+    private static final byte[] DEFAULT_PIN = {
+        (byte)0x12, (byte)0x34, (byte)0x56, (byte)0x78
+    };
+
+    
     private static final short HELLO_WORLD_LEN = 11;
 
     private static final byte CLA_APPLET = (byte)0x80;
