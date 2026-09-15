@@ -29,4 +29,10 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: results.sarif
-
+      - name: Verifier les resultats critiques
+        run: |
+          # Si le fichier de rapport contient "critical" ou "HIGH"
+          if grep -q "CRITICAL" rapport-securite.json; then
+            echo "::error::Vulnérabilité critique détectée, blocage du workflow."
+            exit 1
+          fi
