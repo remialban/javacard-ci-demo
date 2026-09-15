@@ -24,15 +24,9 @@ jobs:
       - name: mobsfscan
         uses: MobSF/mobsfscan@main
         with:
-          args: '. --sarif --output results.sarif || true'
+          args: '. --sarif --output results.sarif'
       - name: Upload mobsfscan report
         uses: github/codeql-action/upload-sarif@v4
+        if: ${{ always() }}
         with:
           sarif_file: results.sarif
-      - name: Verifier les resultats critiques
-        run: |
-          # Si le fichier de rapport contient "critical" ou "HIGH"
-          if grep -q "CRITICAL" rapport-securite.json; then
-            echo "::error::Vulnérabilité critique détectée, blocage du workflow."
-            exit 1
-          fi
