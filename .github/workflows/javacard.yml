@@ -50,7 +50,7 @@ jobs:
           name: insa-cap
           path: build/cap/fr/insa/javacard/insa.cap
   post-release:
-      needs: build-and-test
+    needs: build-and-test
 
     runs-on: ubuntu-latest
 
