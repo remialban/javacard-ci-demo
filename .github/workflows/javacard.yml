@@ -57,7 +57,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Compute next version tag
+        id: next_version
+        run: |
+          # Récupère tous les tags depuis le dépôt distant
+          git fetch --tags
 
+          # Trouve le dernier tag correspondant au format v1.X ou 1.X
+          LATEST_TAG=$(git tag -l "v1.*" | sort -V | tail -n 1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            # Premier tag si aucun n'existe encore
+            NEXT_TAG="v1.0"
+          else
+            # Extrait le numéro mineur après le dernier point
+            PATCH_NUM="${LATEST_TAG##*.}"
+            NEXT_NUM=$((PATCH_NUM + 1))
+            NEXT_TAG="v1.${NEXT_NUM}"
+          fi
+
+          echo "Nouveau tag calculé : $NEXT_TAG"
+          echo "tag=$NEXT_TAG" >> "$GITHUB_OUTPUT"
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -68,4 +88,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: build/cap/fr/insa/javacard/insa.cap
-          tag_name: stage-2026-03-15
+          tag_name: ${{ steps.next_version.outputs.tag }}
+          name: Release ${{ steps.next_version.outputs.tag }}
